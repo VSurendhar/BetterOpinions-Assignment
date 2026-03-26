@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.betteropinions.catalogapplication.ui.navigation.AppNavGraph
 import com.betteropinions.catalogapplication.ui.theme.CatalogApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +21,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CatalogApplicationTheme {
-
+                val navController = rememberNavController()
+                AppNavGraph(navController)
             }
         }
     }
