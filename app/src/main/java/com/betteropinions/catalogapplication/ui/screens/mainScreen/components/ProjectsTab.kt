@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,27 +23,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.betteropinions.catalogapplication.R
+import com.betteropinions.catalogapplication.ui.theme.InterFontFamily
 import com.betteropinions.catalogapplication.ui.theme.catalogColors
 
 @Composable
 fun ProjectsTab(modifier: Modifier) {
     val colors = MaterialTheme.catalogColors
-    Column(modifier = modifier.fillMaxSize().background(Color.White)) {
+    Column(modifier = modifier
+        .fillMaxSize()
+        .background(Color.White)) {
 
-        // 🔷 Custom App Bar
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .wrapContentHeight()
                 .background(colors.purple),
             contentAlignment = Alignment.CenterStart
         ) {
             Text(
                 text = "My Projects",
                 color = Color.White,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(start = 16.dp)
+                fontSize = 18.sp,
+                fontFamily = InterFontFamily,
+                fontWeight = FontWeight.W500,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 16.dp)
             )
         }
 

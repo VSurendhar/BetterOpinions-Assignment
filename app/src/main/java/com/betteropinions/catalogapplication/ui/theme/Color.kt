@@ -14,8 +14,6 @@ val BluePurpleDark = Color(0xFF2D2D4E)  // dark blue-purple (dialog heading/subt
 
 // ── Semantic ────────────────────────────────────────────────────────────────
 val GreenSuccess = Color(0xFF4CAF50)    // green (check bullet icon, refund text)
-val GreenLight = Color(0xFFE8F5E9)      // light green background (refund badge)
-
 // ── Grays ───────────────────────────────────────────────────────────────────
 val GrayLabel = Color(0xFF555555)       // medium-dark label (e.g. "Mobile Number")
 val GraySubtitle = Color(0xFF666666)    // subtitle text
@@ -26,4 +24,5 @@ val GrayBorder = Color(0xFFCCCCCC)      // unfocused text field border (number i
 val GrayBorderLight = Color(0xFFDDDDDD) // unfocused text field border (OTP input)
 val SlateGrayBlue = Color(0xFF677183) // unfocused text field border (OTP input)
 val DarkSlateGrayBlue = Color(0xFF414D64) // unfocused text field border (OTP input)
+val GreenLight = Color(0xFFE4FDEF) // unfocused text field border (OTP input)
 val LavenderMist = Color(0xFFEFECF7) // unfocused text field border (OTP input)

@@ -1,5 +1,7 @@
 package com.betteropinions.catalogapplication.ui.screens.mainScreen.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -20,7 +22,11 @@ sealed class MainScreen(val route: String) {
 fun MainNavGraph(navController: NavHostController, modifier: Modifier) {
     NavHost(
         navController = navController,
-        startDestination = MainScreen.Home.route
+        startDestination = MainScreen.Home.route,
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None },
     ) {
         composable(MainScreen.Home.route) {
             HomeTab(modifier)

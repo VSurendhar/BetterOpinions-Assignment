@@ -25,6 +25,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.betteropinions.catalogapplication.R
+import com.betteropinions.catalogapplication.ui.theme.DarkSlateGrayBlue
+import com.betteropinions.catalogapplication.ui.theme.GreenLight
+import com.betteropinions.catalogapplication.ui.theme.PoppinsFontFamily
 
 @Composable
 fun ThanksDialog(
@@ -44,7 +47,7 @@ fun ThanksDialog(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 36.dp),
+                    .padding(horizontal = 24.dp, vertical = 64.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
@@ -60,9 +63,10 @@ fun ThanksDialog(
                 // Thanks!
                 Text(
                     text = "Thanks!",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF2D2D4E),
+                    fontSize = 31.sp,
+                    fontFamily = PoppinsFontFamily,
+                    fontWeight = FontWeight.SemiBold,
+                    color = DarkSlateGrayBlue,
                     textAlign = TextAlign.Center
                 )
 
@@ -72,8 +76,9 @@ fun ThanksDialog(
                 Text(
                     text = "We are Launching Soon",
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color(0xFF2D2D4E),
+                    fontFamily = PoppinsFontFamily,
+                    fontWeight = FontWeight.W500,
+                    color = DarkSlateGrayBlue,
                     textAlign = TextAlign.Center
                 )
 
@@ -83,14 +88,14 @@ fun ThanksDialog(
                 Text(
                     text = "Amount will be refunded",
                     fontSize = 13.sp,
-                    color = Color(0xFF4CAF50),
+                    color = DarkSlateGrayBlue,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .background(
-                            color = Color(0xFFE8F5E9),
+                            color = GreenLight,
                             shape = RoundedCornerShape(8.dp)
                         )
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .padding(horizontal = 16.dp, vertical = 6.dp)
                 )
             }
         }

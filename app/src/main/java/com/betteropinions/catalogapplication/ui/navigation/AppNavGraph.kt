@@ -3,13 +3,9 @@ package com.betteropinions.catalogapplication.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.betteropinions.catalogapplication.R
-import com.betteropinions.catalogapplication.ui.screens.enterNumberScreen.EnterNumberScreen
-import com.betteropinions.catalogapplication.ui.screens.enterOtpScreen.EnterOtpScreen
 import com.betteropinions.catalogapplication.ui.screens.mainScreen.MainScreen
 import com.betteropinions.catalogapplication.ui.screens.onBoardScreen.BeforeAfterSlide
 import com.betteropinions.catalogapplication.ui.screens.onBoardScreen.OnboardingScreen
@@ -40,7 +36,9 @@ fun AppNavGraph(
         composable(route = Screen.Onboarding.route) {
             OnboardingScreen(
                 onOtpVerified = {
-                    navController.navigate(Screen.Main.route)
+                    navController.navigate(Screen.Main.route) {
+                        popUpTo(Screen.Onboarding.route) { inclusive = true }
+                    }
                 },
                 slides = listOf(
                     BeforeAfterSlide(

@@ -1,6 +1,9 @@
 package com.betteropinions.catalogapplication.ui.dialogs
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -21,7 +25,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,8 +41,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.compose.foundation.Image
 import com.betteropinions.catalogapplication.R
+import com.betteropinions.catalogapplication.ui.theme.SlateGrayBlue
 
 @Composable
 fun PaywallDialog(
@@ -72,7 +75,6 @@ fun PaywallDialog(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
                             .background(
                                 brush = Brush.verticalGradient(
                                     colors = listOf(
@@ -82,10 +84,30 @@ fun PaywallDialog(
                                     )
                                 )
                             )
-                            .padding(horizontal = 8.dp, vertical = 12.dp)
                     ) {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .offset(x = 8.dp, y = (-8).dp)
+                                .size(20.dp)
+                                .background(Color(0xFFE55388), shape = CircleShape)
+                                .border(1.dp, Color.White, CircleShape)
+                                .clickable { onDismiss() },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "Close",
+                                tint = Color.White,
+                                modifier = Modifier.size(14.dp)
+                            )
+                        }
+
                         Column(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp, vertical = 12.dp)
+                                .padding(horizontal = 25.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
 
@@ -111,6 +133,7 @@ fun PaywallDialog(
                                 PaywallBullet("आपके ब्रांड के नाम, लोगो और डिटेल्स के साथ रेडी-मेड Advertisement पोस्टर पाएं")
                             }
                         }
+
                     }
 
                     Spacer(Modifier.height(12.dp))
@@ -118,8 +141,9 @@ fun PaywallDialog(
                     // Note — on white background
                     Text(
                         text = "Note: Trial ₹9 for 3 days then ₹199/ month",
-                        fontSize = 11.sp,
-                        color = Color.Gray,
+                        fontSize = 14.sp,
+                        color = SlateGrayBlue,
+                        fontWeight = FontWeight.W400,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -137,32 +161,28 @@ fun PaywallDialog(
                         ),
                         shape = RoundedCornerShape(10.dp)
                     ) {
-                        Text(
-                            text = "Pay ₹9  99",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center,
+                        ) {
+                            Text(
+                                text = "Pay ₹9",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
+                            )
+                            Spacer(Modifier.width(6.dp))
+                            Text(
+                                text = "99",
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Normal,
+                                color = Color.White.copy(alpha = 0.7f)
+                            )
+                        }
                     }
                 }
             }
 
-            // Close (X) button — top-right corner of outer card
-            IconButton(
-                onClick = onDismiss,
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .offset(x = 8.dp, y = (-8).dp)
-                    .size(28.dp)
-                    .background(Color.Black, shape = CircleShape)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "Close",
-                    tint = Color.White,
-                    modifier = Modifier.size(16.dp)
-                )
-            }
         }
     }
 }
@@ -185,7 +205,6 @@ fun PaywallBullet(text: String) {
             text = text,
             fontSize = 13.sp,
             color = Color.White,
-            lineHeight = 18.sp
         )
     }
 }

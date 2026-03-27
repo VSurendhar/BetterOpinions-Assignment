@@ -1,7 +1,9 @@
 package com.betteropinions.catalogapplication.ui.screens.mainScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -14,6 +16,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -22,6 +25,9 @@ import androidx.navigation.compose.rememberNavController
 import com.betteropinions.catalogapplication.R
 import com.betteropinions.catalogapplication.ui.screens.mainScreen.navigation.MainNavGraph
 import com.betteropinions.catalogapplication.ui.screens.mainScreen.navigation.MainScreen
+import com.betteropinions.catalogapplication.ui.screens.onBoardScreen.SetWhiteStatusBar
+import com.betteropinions.catalogapplication.ui.theme.Purple
+import com.betteropinions.catalogapplication.ui.theme.SlateGrayBlue
 import com.betteropinions.catalogapplication.ui.theme.catalogColors
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -43,17 +49,14 @@ fun MainScreen() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val systemUiController = rememberSystemUiController()
 
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = colors.purple,
-            darkIcons = false
-        )
-    }
+    SetWhiteStatusBar()
 
     Scaffold(
-        containerColor = colors.purple,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Purple)
+            .statusBarsPadding(),
         bottomBar = {
             NavigationBar(
                 containerColor = Color.White,
@@ -84,9 +87,9 @@ fun MainScreen() {
                         colors = NavigationBarItemDefaults.colors(
                             selectedIconColor = colors.purple,
                             selectedTextColor = colors.purple,
-                            indicatorColor = colors.purpleIndicator,
-                            unselectedIconColor = colors.grayNav,
-                            unselectedTextColor = colors.grayNav,
+                            indicatorColor = Transparent,
+                            unselectedIconColor = SlateGrayBlue,
+                            unselectedTextColor = Color(0xFFA0A6B1),
                         )
                     )
                 }

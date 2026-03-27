@@ -1,5 +1,6 @@
 package com.betteropinions.catalogapplication.ui.screens.mainScreen.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,6 +11,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,6 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.betteropinions.catalogapplication.R
+import com.betteropinions.catalogapplication.ui.dialogs.PaywallDialog
+import com.betteropinions.catalogapplication.ui.dialogs.ThanksDialog
+import com.betteropinions.catalogapplication.ui.theme.DarkSlateGrayBlue
+import com.betteropinions.catalogapplication.ui.theme.InterFontFamily
+import com.betteropinions.catalogapplication.ui.theme.PoppinsFontFamily
+import com.betteropinions.catalogapplication.ui.theme.SlateGrayBlue
 import com.betteropinions.catalogapplication.ui.theme.catalogColors
 
 @Composable
@@ -31,29 +42,32 @@ fun CatalogCard(
     val slides = listOf(afterImageRes, beforeImageRes)
     val labels = listOf("After", "Before")
     val pagerState = rememberPagerState(pageCount = { slides.size })
+    var paywallDialog: Boolean by remember { mutableStateOf(false) }
+    var thanksDialog: Boolean by remember { mutableStateOf(false) }
 
     Card(
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        border = BorderStroke(1.dp, Color(0xFFEEEFF1)),
     ) {
         Column {
-            // Header
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp)
             ) {
-                Icon(
+                Image(
                     painter = painterResource(R.drawable.ic_splash_logo),
                     contentDescription = null,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(24.dp)
                 )
-                Spacer(Modifier.width(6.dp))
+                Spacer(Modifier.width(8.dp))
                 Text(
                     text = "Catalog",
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 14.sp,
+                    fontFamily = PoppinsFontFamily,
+                    fontWeight = FontWeight.W500,
+                    color = DarkSlateGrayBlue,
+                    fontSize = 16.sp,
                 )
             }
 
@@ -76,7 +90,7 @@ fun CatalogCard(
                                 .clip(RoundedCornerShape(12.dp))
                         )
                         Surface(
-                            shape = RoundedCornerShape(4.dp),
+                            shape = RoundedCornerShape(8.dp),
                             color = Color.White.copy(alpha = 0.85f),
                             modifier = Modifier
                                 .padding(16.dp)
@@ -84,9 +98,10 @@ fun CatalogCard(
                         ) {
                             Text(
                                 text = labels[pagerState.currentPage],
-                                fontSize = 12.sp,
+                                fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = Color.Black,
+                                color = SlateGrayBlue,
+                                fontFamily = InterFontFamily,
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                             )
                         }
@@ -116,9 +131,10 @@ fun CatalogCard(
                 }
             }
 
-            // Button
             Button(
-                onClick = { },
+                onClick = {
+                    paywallDialog = true
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(12.dp),
@@ -127,8 +143,24 @@ fun CatalogCard(
                 ),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Text("TRY IT OUT!", color = Color.White)
+                Text("TRY IT OUT!", fontSize = 16.sp, color = Color.White)
             }
         }
+
+        if (paywallDialog) {
+            PaywallDialog(onDismiss = {
+                paywallDialog = false
+            }, onPayClick = {
+                paywallDialog = false
+                thanksDialog = true
+            })
+        }
+
+        if (thanksDialog) {
+            ThanksDialog(onDismiss = {
+                thanksDialog = false
+            })
+        }
+
     }
 }

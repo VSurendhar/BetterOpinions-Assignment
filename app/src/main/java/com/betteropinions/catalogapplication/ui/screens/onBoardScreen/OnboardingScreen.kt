@@ -62,9 +62,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -91,13 +95,15 @@ data class BeforeAfterSlide(
 
 private enum class FormStep { ENTER_NUMBER, ENTER_OTP }
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun OnboardingScreen(
     slides: List<BeforeAfterSlide>,
     onOtpVerified: () -> Unit,
 ) {
     val colors = MaterialTheme.catalogColors
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val otpFocusRequester = remember { FocusRequester() }
     var formStep by remember { mutableStateOf(FormStep.ENTER_NUMBER) }
     var phoneNumber by remember { mutableStateOf("") }
     var otp by remember { mutableStateOf("") }
@@ -255,7 +261,11 @@ fun OnboardingScreen(
                             canResend = false
                         },
                         onEditNumber = { formStep = FormStep.ENTER_NUMBER },
-                        onSubmit = { onOtpVerified() },
+                        onSubmit = {
+                            keyboardController?.hide()
+                            onOtpVerified()
+                        },
+                        otpFocusRequester = otpFocusRequester,
                     )
                 }
             }
@@ -359,8 +369,15 @@ private fun EnterOtpForm(
     onResend: () -> Unit,
     onEditNumber: () -> Unit,
     onSubmit: () -> Unit,
+    otpFocusRequester: FocusRequester,
 ) {
     val colors = MaterialTheme.catalogColors
+
+    // Auto-focus the OTP field so keyboard stays open
+    LaunchedEffect(Unit) {
+        otpFocusRequester.requestFocus()
+    }
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -419,7 +436,8 @@ private fun EnterOtpForm(
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 24.dp)
+                .focusRequester(otpFocusRequester),
         )
 
         Spacer(Modifier.height(12.dp))
