@@ -3,6 +3,7 @@ package com.betteropinions.catalogapplication.ui.screens.mainScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -21,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.betteropinions.catalogapplication.R
 import com.betteropinions.catalogapplication.ui.screens.mainScreen.navigation.MainNavGraph
 import com.betteropinions.catalogapplication.ui.screens.mainScreen.navigation.MainScreen
+import com.betteropinions.catalogapplication.ui.theme.catalogColors
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 data class BottomNavItem(
@@ -37,6 +39,7 @@ val bottomNavItems = listOf(
 
 @Composable
 fun MainScreen() {
+    val colors = MaterialTheme.catalogColors
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -44,13 +47,13 @@ fun MainScreen() {
 
     SideEffect {
         systemUiController.setStatusBarColor(
-            color = Color(0xFF5C2D91), // your purple
-            darkIcons = false // white icons
+            color = colors.purple,
+            darkIcons = false
         )
     }
 
     Scaffold(
-        containerColor = Color(0xFF5C2D91),
+        containerColor = colors.purple,
         bottomBar = {
             NavigationBar(
                 containerColor = Color.White,
@@ -79,11 +82,11 @@ fun MainScreen() {
                         },
                         label = { Text(item.label) },
                         colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = Color(0xFF5C2D91),
-                            selectedTextColor = Color(0xFF5C2D91),
-                            indicatorColor = Color(0xFFF3E8FF),
-                            unselectedIconColor = Color(0xFF9E9E9E),
-                            unselectedTextColor = Color(0xFF9E9E9E),
+                            selectedIconColor = colors.purple,
+                            selectedTextColor = colors.purple,
+                            indicatorColor = colors.purpleIndicator,
+                            unselectedIconColor = colors.grayNav,
+                            unselectedTextColor = colors.grayNav,
                         )
                     )
                 }
@@ -92,7 +95,7 @@ fun MainScreen() {
     ) { innerPadding ->
         MainNavGraph(
             navController = navController,
-            modifier = Modifier.padding(innerPadding)  // add modifier param to MainNavGraph
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }

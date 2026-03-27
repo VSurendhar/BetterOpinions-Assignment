@@ -1,5 +1,6 @@
 package com.betteropinions.catalogapplication.ui.screens.onBoardScreen
 
+import android.app.Activity
 import androidx.activity.compose.BackHandler
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedContent
@@ -29,6 +30,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
@@ -45,6 +47,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -52,6 +55,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -61,13 +65,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
 import com.betteropinions.catalogapplication.R
 import com.betteropinions.catalogapplication.ui.screens.onBoardScreen.components.BeforeAfterImageSection
+import com.betteropinions.catalogapplication.ui.theme.DarkSlateGrayBlue
+import com.betteropinions.catalogapplication.ui.theme.LavenderMist
+import com.betteropinions.catalogapplication.ui.theme.Purple
+import com.betteropinions.catalogapplication.ui.theme.SlateGrayBlue
+import com.betteropinions.catalogapplication.ui.theme.catalogColors
 import kotlinx.coroutines.delay
 
 private const val SLIDE_DURATION = 350
@@ -86,6 +97,7 @@ fun OnboardingScreen(
     slides: List<BeforeAfterSlide>,
     onOtpVerified: () -> Unit,
 ) {
+    val colors = MaterialTheme.catalogColors
     var formStep by remember { mutableStateOf(FormStep.ENTER_NUMBER) }
     var phoneNumber by remember { mutableStateOf("") }
     var otp by remember { mutableStateOf("") }
@@ -115,11 +127,18 @@ fun OnboardingScreen(
         }
     }
 
+    SetWhiteStatusBar()
+
     BackHandler(enabled = formStep == FormStep.ENTER_OTP) {
         formStep = FormStep.ENTER_NUMBER
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize().background(Color(0xFF5C2D91))) { paddingValues ->
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Purple)
+            .statusBarsPadding(),
+    ) { paddingValues ->
 
         val isKeyboardOpen = WindowInsets.isImeVisible
 
@@ -127,6 +146,7 @@ fun OnboardingScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
+                .background(Color.White)
                 .verticalScroll(rememberScrollState())
                 .imePadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -177,8 +197,8 @@ fun OnboardingScreen(
                                     .clip(CircleShape)
                                     .size(if (isSelected) 10.dp else 6.dp)
                                     .background(
-                                        if (isSelected) Color(0xFF6B3FA0)
-                                        else Color(0xFF6B3FA0).copy(alpha = 0.3f)
+                                        if (isSelected) colors.purpleLight
+                                        else colors.purpleLight.copy(alpha = 0.3f)
                                     ),
                             )
                         }
@@ -190,32 +210,25 @@ fun OnboardingScreen(
                 targetState = formStep,
                 transitionSpec = {
                     if (targetState == FormStep.ENTER_OTP) {
-                        // Going forward: EnterNumber slides OUT left, OTP slides IN from right
                         (slideInHorizontally(tween(SLIDE_DURATION)) { it } + fadeIn(
                             tween(
                                 SLIDE_DURATION
                             )
-                        ))
-                            .togetherWith(
-                                slideOutHorizontally(tween(SLIDE_DURATION)) { -it } + fadeOut(
-                                    tween(
-                                        SLIDE_DURATION
-                                    )
-                                )
+                        )).togetherWith(slideOutHorizontally(tween(SLIDE_DURATION)) { -it } + fadeOut(
+                            tween(
+                                SLIDE_DURATION
                             )
+                        ))
                     } else {
                         (slideInHorizontally(tween(SLIDE_DURATION)) { -it } + fadeIn(
                             tween(
                                 SLIDE_DURATION
                             )
-                        ))
-                            .togetherWith(
-                                slideOutHorizontally(tween(SLIDE_DURATION)) { it } + fadeOut(
-                                    tween(
-                                        SLIDE_DURATION
-                                    )
-                                )
+                        )).togetherWith(slideOutHorizontally(tween(SLIDE_DURATION)) { it } + fadeOut(
+                            tween(
+                                SLIDE_DURATION
                             )
+                        ))
                     }
                 },
                 modifier = Modifier
@@ -259,15 +272,16 @@ private fun EnterNumberForm(
     onPhoneChange: (String) -> Unit,
     onNext: () -> Unit,
 ) {
+    val colors = MaterialTheme.catalogColors
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = "Catalog Banao Sales Badhao!",
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF1A1A2E),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.W600,
+            color = SlateGrayBlue,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp),
@@ -277,8 +291,9 @@ private fun EnterNumberForm(
 
         Text(
             text = "Mobile Number",
-            fontSize = 14.sp,
-            color = Color(0xFF555555),
+            fontSize = 15.sp,
+            fontWeight = FontWeight.W400,
+            color = SlateGrayBlue,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp),
@@ -289,11 +304,11 @@ private fun EnterNumberForm(
         OutlinedTextField(
             value = phoneNumber,
             onValueChange = { onPhoneChange(it.filter(Char::isDigit).take(10)) },
-            placeholder = { Text("Enter Mobile Number", color = Color(0xFFAAAAAA)) },
+            placeholder = { Text("Enter Mobile Number", color = colors.grayPlaceholder) },
             prefix = {
                 Text(
                     text = "+91  ",
-                    color = Color(0xFF1A1A2E),
+                    color = colors.navyDark,
                     fontWeight = FontWeight.Medium,
                 )
             },
@@ -301,8 +316,8 @@ private fun EnterNumberForm(
             singleLine = true,
             shape = RoundedCornerShape(8.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color(0xFF6B3FA0),
-                unfocusedBorderColor = Color(0xFFCCCCCC),
+                focusedBorderColor = colors.purpleLight,
+                unfocusedBorderColor = colors.grayBorder,
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White,
             ),
@@ -322,13 +337,13 @@ private fun EnterNumberForm(
                 .height(52.dp),
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF6B3FA0),
-                disabledContainerColor = Color(0xFF6B3FA0).copy(alpha = 0.45f),
+                containerColor = colors.purpleLight,
+                disabledContainerColor = colors.purpleLight.copy(alpha = 0.45f),
                 contentColor = Color.White,
                 disabledContentColor = Color.White,
             ),
         ) {
-            Text("Next", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+            Text("Next", fontSize = 16.sp, fontWeight = FontWeight.Medium)
         }
     }
 }
@@ -345,6 +360,7 @@ private fun EnterOtpForm(
     onEditNumber: () -> Unit,
     onSubmit: () -> Unit,
 ) {
+    val colors = MaterialTheme.catalogColors
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -352,15 +368,13 @@ private fun EnterOtpForm(
         // Title
         Text(
             text = "Enter OTP",
-            fontSize = 26.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF1A1A2E),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.W600,
+            color = SlateGrayBlue,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp),
         )
-
-        Spacer(Modifier.height(6.dp))
 
         Row(
             modifier = Modifier
@@ -371,13 +385,14 @@ private fun EnterOtpForm(
             Text(
                 text = "Enter 6 digit OTP sent on $phoneNumber",
                 fontSize = 13.sp,
-                color = Color(0xFF666666),
+                fontWeight = FontWeight.W400,
+                color = SlateGrayBlue,
             )
             Spacer(Modifier.width(4.dp))
             IconButton(
                 onClick = onEditNumber,
                 modifier = Modifier.size(20.dp),
-                colors = IconButtonDefaults.iconButtonColors(contentColor = Color(0xFF6B3FA0)),
+                colors = IconButtonDefaults.iconButtonColors(contentColor = colors.purpleLight),
             ) {
                 Icon(
                     imageVector = Icons.Filled.Edit,
@@ -392,13 +407,13 @@ private fun EnterOtpForm(
         OutlinedTextField(
             value = otp,
             onValueChange = { if (it.length <= 6) onOtpChange(it.filter(Char::isDigit)) },
-            placeholder = { Text("Enter 6 digits here", color = Color(0xFFAAAAAA)) },
+            placeholder = { Text("Enter 6 digits here", color = colors.grayPlaceholder) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
             singleLine = true,
             shape = RoundedCornerShape(8.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color(0xFF6B3FA0),
-                unfocusedBorderColor = Color(0xFFDDDDDD),
+                focusedBorderColor = colors.purpleLight,
+                unfocusedBorderColor = colors.grayBorderLight,
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White,
             ),
@@ -415,24 +430,36 @@ private fun EnterOtpForm(
                 .padding(horizontal = 24.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text("Code expires in...  ", fontSize = 13.sp, color = Color(0xFF888888))
             if (!canResend) {
+                Text(
+                    "Code expires in...  ",
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.W400,
+                    color = SlateGrayBlue,
+                )
                 Text(
                     text = "${timer}s",
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF6B3FA0),
+                    color = colors.purpleLight,
                 )
             }
             Spacer(Modifier.width(12.dp))
-            OutlinedButton(
+            Button(
                 onClick = onResend,
                 enabled = canResend,
+                colors = ButtonDefaults.buttonColors().copy(containerColor = LavenderMist),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
                 modifier = Modifier.height(32.dp),
             ) {
-                Text("Resend", fontSize = 13.sp)
+                Text(
+                    modifier = Modifier,
+                    text = "Resend",
+                    fontSize = 13.sp,
+                    color = DarkSlateGrayBlue,
+                    fontWeight = FontWeight.W400
+                )
             }
         }
 
@@ -447,8 +474,8 @@ private fun EnterOtpForm(
                 .height(52.dp),
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF6B3FA0),
-                disabledContainerColor = Color(0xFF6B3FA0).copy(alpha = 0.45f),
+                containerColor = colors.purpleLight,
+                disabledContainerColor = colors.purpleLight.copy(alpha = 0.45f),
                 contentColor = Color.White,
                 disabledContentColor = Color.White,
             ),
@@ -458,6 +485,17 @@ private fun EnterOtpForm(
     }
 }
 
+@Composable
+fun SetWhiteStatusBar() {
+    val view = LocalView.current
+
+    SideEffect {
+        val window = (view.context as Activity).window
+
+        // Set icons to DARK (so visible on white background)
+        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
+    }
+}
 
 @Preview
 @Composable
@@ -467,7 +505,5 @@ fun PreviewOnboardingScreen() {
             BeforeAfterSlide(R.drawable.img_onboard1_before, R.drawable.img_onboard1_after),
             BeforeAfterSlide(R.drawable.img_onboard2_before, R.drawable.img_onboard2_after),
             BeforeAfterSlide(R.drawable.img_onboard3_before, R.drawable.img_onboard3_after),
-        ),
-        onOtpVerified = {}
-    )
+        ), onOtpVerified = {})
 }

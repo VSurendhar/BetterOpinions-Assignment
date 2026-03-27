@@ -23,7 +23,7 @@ fun AppNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Main.route,
+        startDestination = Screen.Splash.route,
         modifier = modifier,
     ) {
 
@@ -40,7 +40,7 @@ fun AppNavGraph(
         composable(route = Screen.Onboarding.route) {
             OnboardingScreen(
                 onOtpVerified = {
-                    navController.navigate(Screen.EnterNumber.route)
+                    navController.navigate(Screen.Main.route)
                 },
                 slides = listOf(
                     BeforeAfterSlide(
@@ -56,35 +56,6 @@ fun AppNavGraph(
                         R.drawable.img_onboard3_after
                     )
                 )
-            )
-        }
-
-        composable(route = Screen.EnterNumber.route) {
-            EnterNumberScreen(
-                onNumberSubmitted = { phoneNumber ->
-                    navController.navigate(Screen.EnterOtp.createRoute(phoneNumber))
-                }
-            )
-        }
-
-        composable(
-            route = Screen.EnterOtp.route,
-            arguments = listOf(
-                navArgument(Screen.EnterOtp.ARG_PHONE) { type = NavType.StringType }
-            )
-        ) { backStackEntry ->
-            val phoneNumber = backStackEntry.arguments
-                ?.getString(Screen.EnterOtp.ARG_PHONE)
-                .orEmpty()
-
-            EnterOtpScreen(
-                phoneNumber = phoneNumber,
-                onOtpVerified = {
-                    navController.navigate(Screen.Main.route) {
-                        popUpTo(Screen.Onboarding.route) { inclusive = true }
-                    }
-                },
-                onBack = { navController.popBackStack() }
             )
         }
 

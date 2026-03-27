@@ -20,12 +20,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.betteropinions.catalogapplication.R
+import com.betteropinions.catalogapplication.ui.theme.catalogColors
 
 @Composable
 fun CatalogCard(
     afterImageRes: Int,
     beforeImageRes: Int,
 ) {
+    val colors = MaterialTheme.catalogColors
     val slides = listOf(afterImageRes, beforeImageRes)
     val labels = listOf("After", "Before")
     val pagerState = rememberPagerState(pageCount = { slides.size })
@@ -34,8 +36,7 @@ fun CatalogCard(
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     ) {
         Column {
             // Header
@@ -92,8 +93,6 @@ fun CatalogCard(
                     }
                 }
 
-                // "After" / "Before" label — top-left
-
                 // Dot indicators — bottom-center
                 Row(
                     modifier = Modifier
@@ -109,7 +108,7 @@ fun CatalogCard(
                                 .clip(CircleShape)
                                 .size(if (isSelected) 10.dp else 6.dp)
                                 .background(
-                                    if (isSelected) Color(0xFF6B3FA0)
+                                    if (isSelected) colors.purpleLight
                                     else Color.White.copy(alpha = 0.6f)
                                 )
                         )
@@ -124,7 +123,7 @@ fun CatalogCard(
                     .fillMaxWidth()
                     .padding(12.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF5C2D91)
+                    containerColor = colors.purple
                 ),
                 shape = RoundedCornerShape(8.dp)
             ) {

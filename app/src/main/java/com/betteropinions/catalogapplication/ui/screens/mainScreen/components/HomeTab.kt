@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,11 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.betteropinions.catalogapplication.R
+import com.betteropinions.catalogapplication.ui.theme.catalogColors
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTab(modifier: Modifier) {
+    val colors = MaterialTheme.catalogColors
     Column(modifier = modifier
         .fillMaxSize()
         .background(Color.White)) {
@@ -35,7 +38,7 @@ fun HomeTab(modifier: Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
-                .background(Color(0xFF5C2D91)),
+                .background(colors.purple),
             contentAlignment = Alignment.CenterStart
         ) {
             Text(
@@ -43,8 +46,7 @@ fun HomeTab(modifier: Modifier) {
                 color = Color.White,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier
-                    .padding(start = 16.dp)
+                modifier = Modifier.padding(start = 16.dp)
             )
         }
 
@@ -56,7 +58,6 @@ fun HomeTab(modifier: Modifier) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(vertical = 16.dp)
         ) {
-            // Repeat for as many catalog cards as needed
             items(4) {
                 CatalogCard(
                     afterImageRes = R.drawable.img_catalog1_after,
@@ -64,9 +65,5 @@ fun HomeTab(modifier: Modifier) {
                 )
             }
         }
-
     }
 }
-
-
-

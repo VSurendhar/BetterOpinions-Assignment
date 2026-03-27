@@ -12,10 +12,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.betteropinions.catalogapplication.R
+import com.betteropinions.catalogapplication.ui.theme.catalogColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateTab(modifier: Modifier) {
+    val colors = MaterialTheme.catalogColors
     Column(modifier = modifier.fillMaxSize().background(Color.White)) {
 
         // 🔷 Custom App Bar
@@ -23,7 +25,7 @@ fun CreateTab(modifier: Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
-                .background(Color(0xFF5C2D91)),
+                .background(colors.purple),
             contentAlignment = Alignment.CenterStart
         ) {
             Text(
@@ -31,15 +33,13 @@ fun CreateTab(modifier: Modifier) {
                 color = Color.White,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier
-                    .padding(start = 16.dp)
+                modifier = Modifier.padding(start = 16.dp)
             )
         }
 
         // 🔷 Content
         Box(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
