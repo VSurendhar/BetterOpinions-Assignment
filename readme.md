@@ -112,13 +112,15 @@ During large display size testing, several UI layout issues were identified. The
 
 ## Summary
 
-| Area | Detail |
-|------|--------|
-| Architecture | MVI |
-| Module Structure | Monolithic |
-| Orientation Support | Portrait only |
-| Theme | Light mode only |
-| Asset Source | Locally bundled |
-| Release Build | Signed, shrunk, optimised |
-| Additional Feature | Debounced catalog search |
+| Area                  | Detail                                       |
+|-----------------------|----------------------------------------------|
+| Architecture          | MVI                                          |
+| Module Structure      | Monolithic                                   |
+| Orientation Support   | Portrait only                                |
+| Theme                 | Light mode only                              |
+| Asset Source          | Locally bundled                              |
+| Release Build         | Signed, shrunk, optimised                    |
+| Additional Feature    | Debounced catalog search                     |
 | Display Compatibility | Verified on large display/font size settings |
+| Min SDK               | 24  - Android 7.0                            |
+| Target SDK            | 36  - Android 16                             |
