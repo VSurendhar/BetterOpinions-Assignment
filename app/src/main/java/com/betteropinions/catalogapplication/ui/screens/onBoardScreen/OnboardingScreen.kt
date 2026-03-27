@@ -69,6 +69,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -278,7 +279,9 @@ fun OnboardingScreen(
                 }
             }
 
+            Spacer(Modifier.height(16.dp))
             Spacer(Modifier.weight(1f))
+
         }
     }
 }
@@ -298,7 +301,7 @@ private fun EnterNumberForm(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "Catalog Banao Sales Badhao!",
+            text = stringResource(R.string.onboarding_title),
             fontSize = 20.sp,
             fontWeight = FontWeight.W600,
             color = SlateGrayBlue,
@@ -310,7 +313,7 @@ private fun EnterNumberForm(
         Spacer(Modifier.height(40.dp))
 
         Text(
-            text = "Mobile Number",
+            text = stringResource(R.string.onboarding_mobile_number),
             fontSize = 15.sp,
             fontWeight = FontWeight.W400,
             color = SlateGrayBlue,
@@ -324,10 +327,10 @@ private fun EnterNumberForm(
         OutlinedTextField(
             value = phoneNumber,
             onValueChange = { onPhoneChange(it.filter(Char::isDigit).take(10)) },
-            placeholder = { Text("Enter Mobile Number", color = colors.grayPlaceholder) },
+            placeholder = { Text(stringResource(R.string.onboarding_mobile_placeholder), color = colors.grayPlaceholder) },
             prefix = {
                 Text(
-                    text = "+91  ",
+                    text = stringResource(R.string.onboarding_country_code),
                     color = colors.navyDark,
                     fontWeight = FontWeight.Medium,
                 )
@@ -340,6 +343,9 @@ private fun EnterNumberForm(
                 unfocusedBorderColor = colors.grayBorder,
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                cursorColor = Purple,
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -363,7 +369,7 @@ private fun EnterNumberForm(
                 disabledContentColor = Color.White,
             ),
         ) {
-            Text("Next", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+            Text(stringResource(R.string.onboarding_next), fontSize = 16.sp, fontWeight = FontWeight.Medium)
         }
     }
 }
@@ -394,7 +400,7 @@ private fun EnterOtpForm(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "Enter OTP",
+            text = stringResource(R.string.onboarding_enter_otp),
             fontSize = 20.sp,
             fontWeight = FontWeight.W600,
             color = SlateGrayBlue,
@@ -410,7 +416,7 @@ private fun EnterOtpForm(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "Enter 6 digit OTP sent on $phoneNumber",
+                text = stringResource(R.string.onboarding_otp_sent_to, phoneNumber),
                 fontSize = 13.sp,
                 fontWeight = FontWeight.W400,
                 color = SlateGrayBlue,
@@ -423,7 +429,7 @@ private fun EnterOtpForm(
             ) {
                 Icon(
                     imageVector = Icons.Filled.Edit,
-                    contentDescription = "Edit number",
+                    contentDescription = stringResource(R.string.onboarding_edit_number_desc),
                     modifier = Modifier.size(16.dp),
                 )
             }
@@ -434,7 +440,7 @@ private fun EnterOtpForm(
         OutlinedTextField(
             value = otp,
             onValueChange = { if (it.length <= 6) onOtpChange(it.filter(Char::isDigit)) },
-            placeholder = { Text("Enter 6 digits here", color = colors.grayPlaceholder) },
+            placeholder = { Text(stringResource(R.string.onboarding_otp_placeholder), color = colors.grayPlaceholder) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
             singleLine = true,
             shape = RoundedCornerShape(8.dp),
@@ -443,6 +449,9 @@ private fun EnterOtpForm(
                 unfocusedBorderColor = colors.grayBorderLight,
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                cursorColor = Purple,
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -460,13 +469,13 @@ private fun EnterOtpForm(
         ) {
             if (!canResend) {
                 Text(
-                    "Code expires in...  ",
+                    stringResource(R.string.onboarding_code_expires),
                     fontSize = 13.sp,
                     fontWeight = FontWeight.W400,
                     color = SlateGrayBlue,
                 )
                 Text(
-                    text = "${timer}s",
+                    text = "${timer}${stringResource(R.string.onboarding_seconds)}",
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
                     color = colors.purpleLight,
@@ -483,7 +492,7 @@ private fun EnterOtpForm(
             ) {
                 Text(
                     modifier = Modifier,
-                    text = "Resend",
+                    text = stringResource(R.string.onboarding_resend),
                     fontSize = 13.sp,
                     color = DarkSlateGrayBlue,
                     fontWeight = FontWeight.W400
@@ -508,7 +517,7 @@ private fun EnterOtpForm(
                 disabledContentColor = Color.White,
             ),
         ) {
-            Text("Submit", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.onboarding_submit), fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
         }
     }
 }

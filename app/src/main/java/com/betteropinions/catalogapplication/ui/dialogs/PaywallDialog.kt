@@ -15,8 +15,10 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -41,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.zIndex
 import com.betteropinions.catalogapplication.R
 import com.betteropinions.catalogapplication.ui.theme.SlateGrayBlue
 
@@ -63,22 +66,25 @@ fun PaywallDialog(
                 colors = CardDefaults.cardColors(containerColor = Color.White),
                 modifier = Modifier.fillMaxWidth()
             ) {
+                val scrollState = rememberScrollState()
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(16.dp)
+                        .verticalScroll(scrollState),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .padding(top = 8.dp)
                             .background(
                                 brush = Brush.verticalGradient(
                                     colors = listOf(
-                                        Color(0xFF5C2D91), // purple top
-                                        Color(0xFF1A0A2E), // deep purple-black mid
-                                        Color(0xFF000000)  // black bottom
+                                        Color(0xFF5C2D91),
+                                        Color(0xFF1A0A2E),
+                                        Color(0xFF000000)
                                     )
                                 )
                             )

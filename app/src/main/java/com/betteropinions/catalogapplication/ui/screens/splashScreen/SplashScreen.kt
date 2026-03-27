@@ -1,6 +1,7 @@
 package com.betteropinions.catalogapplication.ui.screens.splashScreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -37,10 +39,15 @@ fun SplashScreen(onSplashComplete: () -> Unit) {
             onSplashComplete()
         }
     }
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .background(Color.White)
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -48,11 +55,11 @@ fun SplashScreen(onSplashComplete: () -> Unit) {
             Image(
                 modifier = Modifier.padding(vertical = 32.dp),
                 painter = painterResource(R.drawable.ic_splash_logo),
-                contentDescription = "Splash Logo"
+                contentDescription = stringResource(R.string.splash_logo_desc)
             )
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Catalog",
+                text = stringResource(R.string.splash_catalog),
                 fontSize = 28.sp,
                 color = Purple,
                 fontFamily = PoppinsFontFamily,
@@ -68,7 +75,7 @@ fun SplashScreen(onSplashComplete: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Made in India",
+                    text = stringResource(R.string.splash_made_in_india),
                     textAlign = TextAlign.Center,
                     color = Color(0xFF677183),
                     fontFamily = PoppinsFontFamily,
@@ -78,7 +85,7 @@ fun SplashScreen(onSplashComplete: () -> Unit) {
                 Image(
                     modifier = Modifier.size(width = 16.dp, height = 11.dp),
                     painter = painterResource(R.drawable.img_india),
-                    contentDescription = "India Flag"
+                    contentDescription = stringResource(R.string.splash_india_flag_desc)
                 )
             }
         }

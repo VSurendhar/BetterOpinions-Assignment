@@ -36,17 +36,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.betteropinions.catalogapplication.R
 import com.betteropinions.catalogapplication.ui.dialogs.PaywallDialog
 import com.betteropinions.catalogapplication.ui.dialogs.ThanksDialog
 import com.betteropinions.catalogapplication.ui.screens.mainScreen.home.HomeUiAction
 import com.betteropinions.catalogapplication.ui.screens.mainScreen.home.HomeUiEvent
 import com.betteropinions.catalogapplication.ui.screens.mainScreen.home.HomeViewModel
 import com.betteropinions.catalogapplication.ui.theme.InterFontFamily
+import com.betteropinions.catalogapplication.ui.theme.Purple
 import com.betteropinions.catalogapplication.ui.theme.catalogColors
 
 private enum class DialogType { NONE, PAYWALL, THANKS }
@@ -96,7 +99,7 @@ fun HomeTab(
                             .weight(1f),
                         placeholder = {
                             Text(
-                                "Search catalog...",
+                                stringResource(R.string.search_catalog),
                                 color = Color.White.copy(alpha = 0.7f)
                             )
                         },
@@ -104,9 +107,9 @@ fun HomeTab(
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color.White,
                             unfocusedBorderColor = Color.White.copy(alpha = 0.5f),
-                            focusedTextColor = Color.White,
-                            unfocusedTextColor = Color.White,
-                            cursorColor = Color.White,
+                            focusedTextColor = Color.Black,
+                            unfocusedTextColor = Color.Black,
+                            cursorColor = Purple,
                         ),
                         shape = RoundedCornerShape(8.dp)
                     )
@@ -114,7 +117,7 @@ fun HomeTab(
                     IconButton(onClick = { viewModel.onAction(HomeUiAction.OnCloseSearchClicked) }) {
                         Icon(
                             Icons.Default.Close,
-                            contentDescription = "Close search",
+                            contentDescription = stringResource(R.string.close_search_content_desc),
                             tint = Color.White
                         )
                     }
@@ -127,7 +130,7 @@ fun HomeTab(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Home",
+                        text = stringResource(R.string.main_nav_home),
                         color = Color.White,
                         fontSize = 18.sp,
                         fontFamily = InterFontFamily,
@@ -136,7 +139,7 @@ fun HomeTab(
                     IconButton(onClick = { viewModel.onAction(HomeUiAction.OnSearchIconClicked) }) {
                         Icon(
                             Icons.Default.Search,
-                            contentDescription = "Search",
+                            contentDescription = stringResource(R.string.search_content_desc),
                             tint = Color.White
                         )
                     }

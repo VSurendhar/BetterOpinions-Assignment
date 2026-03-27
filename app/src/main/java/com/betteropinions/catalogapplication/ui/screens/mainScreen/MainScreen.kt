@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -30,15 +31,15 @@ import com.betteropinions.catalogapplication.ui.theme.SlateGrayBlue
 import com.betteropinions.catalogapplication.ui.theme.catalogColors
 
 data class BottomNavItem(
-    val label: String,
+    val labelStringRes: Int,
     val screen: MainScreen,
     val iconRes: Int,
 )
 
 val bottomNavItems = listOf(
-    BottomNavItem("Home", MainScreen.Home, R.drawable.ic_home),
-    BottomNavItem("Create", MainScreen.Create, R.drawable.ic_pencil),
-    BottomNavItem("Projects", MainScreen.Projects, R.drawable.ic_project),
+    BottomNavItem(R.string.main_nav_home, MainScreen.Home, R.drawable.ic_home),
+    BottomNavItem(R.string.main_nav_create, MainScreen.Create, R.drawable.ic_pencil),
+    BottomNavItem(R.string.main_nav_projects, MainScreen.Projects, R.drawable.ic_project),
 )
 
 @Composable
@@ -78,10 +79,10 @@ fun MainScreen() {
                         icon = {
                             Icon(
                                 painter = painterResource(id = item.iconRes),
-                                contentDescription = item.label
+                                contentDescription = stringResource(id = item.labelStringRes)
                             )
                         },
-                        label = { Text(item.label) },
+                        label = { Text(stringResource(id = item.labelStringRes)) },
                         colors = NavigationBarItemDefaults.colors(
                             selectedIconColor = colors.purple,
                             selectedTextColor = colors.purple,

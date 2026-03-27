@@ -1,3 +1,55 @@
 <resources>
-    <string name="app_name">CatalogApplication</string>
+    <string name="app_name">Catalog Application</string>
+    
+    <!-- Splash Screen -->
+    <string name="splash_logo_desc">Splash Logo</string>
+    <string name="splash_catalog">Catalog</string>
+    <string name="splash_made_in_india">Made in India</string>
+    <string name="splash_india_flag_desc">India Flag</string>
+
+    <!-- Onboarding Screen -->
+    <string name="onboarding_title">Catalog Banao Sales Badhao!</string>
+    <string name="onboarding_mobile_number">Mobile Number</string>
+    <string name="onboarding_mobile_placeholder">Enter Mobile Number</string>
+    <string name="onboarding_country_code">+91  </string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_enter_otp">Enter OTP</string>
+    <string name="onboarding_otp_sent_to">Enter 6 digit OTP sent on %s</string>
+    <string name="onboarding_edit_number_desc">Edit number</string>
+    <string name="onboarding_otp_placeholder">Enter 6 digits here</string>
+    <string name="onboarding_code_expires">Code expires in...  </string>
+    <string name="onboarding_seconds">s</string>
+    <string name="onboarding_resend">Resend</string>
+    <string name="onboarding_submit">Submit</string>
+
+    <!-- Main Navigation -->
+    <string name="main_nav_home">Home</string>
+    <string name="main_nav_create">Create</string>
+    <string name="main_nav_projects">Projects</string>
+    <string name="my_projects">My Projects</string>
+
+    <!-- Home Tab -->
+    <string name="search_catalog">Search catalog...</string>
+    <string name="search_content_desc">Search</string>
+    <string name="close_search_content_desc">Close search</string>
+
+    <!-- Catalog Card -->
+    <string name="catalog_card_after">After</string>
+    <string name="catalog_card_before">Before</string>
+    <string name="catalog_card_try_it_out">TRY IT OUT!</string>
+
+    <!-- Thanks Dialog -->
+    <string name="thanks_launch_desc">Launch</string>
+    <string name="thanks_title">Thanks!</string>
+    <string name="thanks_subtitle">We are Launching Soon</string>
+    <string name="thanks_refund">Amount will be refunded</string>
+
+    <!-- Paywall Dialog -->
+    <string name="close_desc">Close</string>
+    <string name="paywall_bullet_1">बिना फोटोशूट, दिखाएं अपने प्रोडक्ट को स्टाइलिश तरीके से।</string>
+    <string name="paywall_bullet_2">सिर्फ फोटो अपलोड करें — AI बनाएगा प्रोफेशनल मॉडल फोटो!</string>
+    <string name="paywall_bullet_3">आपके ब्रांड के नाम, लोगो और डिटेल्स के साथ रेडी-मेड Advertisement पोस्टर पाएं</string>
+    <string name="paywall_note">Note: Trial ₹9 for 3 days then ₹199/ month</string>
+    <string name="paywall_button_main">Pay ₹9</string>
+    <string name="paywall_button_sub">99</string>
 </resources>

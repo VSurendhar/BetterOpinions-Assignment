@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,14 +54,14 @@ fun ThanksDialog(
 
                 Image(
                     painter = painterResource(R.drawable.ic_launch_logo),
-                    contentDescription = "Launch",
+                    contentDescription = stringResource(R.string.thanks_launch_desc),
                     modifier = Modifier.size(80.dp)
                 )
 
                 Spacer(Modifier.height(20.dp))
 
                 Text(
-                    text = "Thanks!",
+                    text = stringResource(R.string.thanks_title),
                     fontSize = 31.sp,
                     fontFamily = PoppinsFontFamily,
                     fontWeight = FontWeight.SemiBold,
@@ -71,7 +72,7 @@ fun ThanksDialog(
                 Spacer(Modifier.height(6.dp))
 
                 Text(
-                    text = "We are Launching Soon",
+                    text = stringResource(R.string.thanks_subtitle),
                     fontSize = 16.sp,
                     fontFamily = PoppinsFontFamily,
                     fontWeight = FontWeight.W500,
@@ -82,7 +83,7 @@ fun ThanksDialog(
                 Spacer(Modifier.height(16.dp))
 
                 Text(
-                    text = "Amount will be refunded",
+                    text = stringResource(R.string.thanks_refund),
                     fontSize = 13.sp,
                     color = DarkSlateGrayBlue,
                     textAlign = TextAlign.Center,

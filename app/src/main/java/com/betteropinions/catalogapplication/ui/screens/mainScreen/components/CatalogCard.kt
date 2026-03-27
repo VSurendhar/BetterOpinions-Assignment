@@ -16,6 +16,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,7 +37,7 @@ fun CatalogCard(
 ) {
     val colors = MaterialTheme.catalogColors
     val slides = listOf(afterImageRes, beforeImageRes)
-    val labels = listOf("After", "Before")
+    val labels = listOf(stringResource(R.string.catalog_card_after), stringResource(R.string.catalog_card_before))
     val pagerState = rememberPagerState(pageCount = { slides.size })
 
     Card(
@@ -132,7 +134,7 @@ fun CatalogCard(
                 ),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Text("TRY IT OUT!", fontSize = 16.sp, color = Color.White)
+                Text(stringResource(R.string.catalog_card_try_it_out), fontSize = 16.sp, color = Color.White)
             }
         }
     }
