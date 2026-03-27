@@ -9,7 +9,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.betteropinions.catalogapplication.R
 
-// --- Font Families ---
 
 val InterFontFamily = FontFamily(
     Font(R.font.inter_18pt_thin, FontWeight.Thin),
@@ -37,7 +36,6 @@ val PoppinsFontFamily = FontFamily(
     Font(R.font.poppins_black, FontWeight.Black),
 )
 
-// --- Typography ---
 
 val Typography = Typography(
     bodyLarge = TextStyle(

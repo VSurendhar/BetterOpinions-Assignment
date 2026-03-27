@@ -12,7 +12,6 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,7 +28,6 @@ import com.betteropinions.catalogapplication.ui.screens.onBoardScreen.SetWhiteSt
 import com.betteropinions.catalogapplication.ui.theme.Purple
 import com.betteropinions.catalogapplication.ui.theme.SlateGrayBlue
 import com.betteropinions.catalogapplication.ui.theme.catalogColors
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 data class BottomNavItem(
     val label: String,

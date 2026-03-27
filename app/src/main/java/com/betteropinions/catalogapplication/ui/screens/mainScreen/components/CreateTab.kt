@@ -19,14 +19,18 @@ import com.betteropinions.catalogapplication.ui.theme.catalogColors
 @Composable
 fun CreateTab(modifier: Modifier) {
     val colors = MaterialTheme.catalogColors
-    Column(modifier = modifier.fillMaxSize().background(Color.White)) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .background(colors.purple),
-            contentAlignment = Alignment.CenterStart
+                .background(colors.purple)
+                .padding(horizontal = 16.dp, vertical = 12.dp),
         ) {
             Text(
                 text = "Create",
@@ -34,9 +38,6 @@ fun CreateTab(modifier: Modifier) {
                 fontSize = 18.sp,
                 fontFamily = InterFontFamily,
                 fontWeight = FontWeight.W500,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 16.dp)
             )
         }
 

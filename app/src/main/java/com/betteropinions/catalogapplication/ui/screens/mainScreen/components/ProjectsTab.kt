@@ -29,15 +29,18 @@ import com.betteropinions.catalogapplication.ui.theme.catalogColors
 @Composable
 fun ProjectsTab(modifier: Modifier) {
     val colors = MaterialTheme.catalogColors
-    Column(modifier = modifier
-        .fillMaxSize()
-        .background(Color.White)) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .background(colors.purple),
+                .background(colors.purple)
+                .padding(horizontal = 16.dp, vertical = 12.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             Text(
@@ -45,14 +48,10 @@ fun ProjectsTab(modifier: Modifier) {
                 color = Color.White,
                 fontSize = 18.sp,
                 fontFamily = InterFontFamily,
-                fontWeight = FontWeight.W500,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 16.dp)
+                fontWeight = FontWeight.W500
             )
         }
 
-        // 🔷 Content
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center

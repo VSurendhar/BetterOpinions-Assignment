@@ -1,6 +1,5 @@
 package com.betteropinions.catalogapplication.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -15,27 +14,18 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-// ── CatalogColors ─────────────────────────────────────────────────────────
-/**
- * All app-specific colors in one place.
- * Access them in any Composable via [MaterialTheme.catalogColors].
- */
 data class CatalogColors(
-    // Brand / Primary
     val purple: Color = Purple,
     val purpleLight: Color = PurpleLight,
     val purpleDeep: Color = PurpleDeep,
     val purpleIndicator: Color = PurpleIndicator,
 
-    // Text
     val navyDark: Color = NavyDark,
     val bluePurpleDark: Color = BluePurpleDark,
 
-    // Semantic
     val greenSuccess: Color = GreenSuccess,
     val greenLight: Color = GreenLight,
 
-    // Grays
     val grayLabel: Color = GrayLabel,
     val graySubtitle: Color = GraySubtitle,
     val grayTimer: Color = GrayTimer,
@@ -47,13 +37,11 @@ data class CatalogColors(
 
 val LocalCatalogColors = staticCompositionLocalOf { CatalogColors() }
 
-/** Convenient accessor: `MaterialTheme.catalogColors.purple` */
 val MaterialTheme.catalogColors: CatalogColors
     @Composable
     @ReadOnlyComposable
     get() = LocalCatalogColors.current
 
-// ── Material color schemes ─────────────────────────────────────────────────
 private val DarkColorScheme = darkColorScheme(
     primary = Purple,
     secondary = PurpleLight,
@@ -72,7 +60,6 @@ private val LightColorScheme = lightColorScheme(
     onSurface = NavyDark,
 )
 
-// ── Theme ──────────────────────────────────────────────────────────────────
 @Composable
 fun CatalogApplicationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

@@ -48,7 +48,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
@@ -76,6 +75,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.betteropinions.catalogapplication.R
 import com.betteropinions.catalogapplication.ui.screens.onBoardScreen.components.BeforeAfterImageSection
 import com.betteropinions.catalogapplication.ui.theme.DarkSlateGrayBlue
@@ -95,11 +96,15 @@ data class BeforeAfterSlide(
 
 private enum class FormStep { ENTER_NUMBER, ENTER_OTP }
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class)
+@OptIn(
+    ExperimentalLayoutApi::class,
+    ExperimentalAnimationApi::class,
+    ExperimentalComposeUiApi::class
+)
 @Composable
 fun OnboardingScreen(
-    slides: List<BeforeAfterSlide>,
     onOtpVerified: () -> Unit,
+    viewModel: OnboardingViewModel = viewModel(),
 ) {
     val colors = MaterialTheme.catalogColors
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -110,9 +115,11 @@ fun OnboardingScreen(
     var otpTimer by remember { mutableIntStateOf(RESEND_COUNTDOWN) }
     var canResend by remember { mutableStateOf(false) }
 
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val slides = uiState.slides
+
     val pagerState = rememberPagerState(pageCount = { slides.size })
 
-    // Auto-scroll pager
     LaunchedEffect(pagerState.pageCount) {
         while (true) {
             delay(2_000)
@@ -172,7 +179,7 @@ fun OnboardingScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 34.dp),
+                        .padding(top = 34.dp, bottom = 14.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     HorizontalPager(
@@ -239,7 +246,8 @@ fun OnboardingScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = if (isKeyboardOpen) 34.dp else 0.dp),
+                    .padding(top = if (isKeyboardOpen) 34.dp else 0.dp)
+                    .background(Color(0xFFFBFBFB)),
                 label = "formStep",
             ) { step ->
                 when (step) {
@@ -284,7 +292,9 @@ private fun EnterNumberForm(
 ) {
     val colors = MaterialTheme.catalogColors
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -373,16 +383,16 @@ private fun EnterOtpForm(
 ) {
     val colors = MaterialTheme.catalogColors
 
-    // Auto-focus the OTP field so keyboard stays open
     LaunchedEffect(Unit) {
         otpFocusRequester.requestFocus()
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Title
         Text(
             text = "Enter OTP",
             fontSize = 20.sp,
@@ -509,8 +519,6 @@ fun SetWhiteStatusBar() {
 
     SideEffect {
         val window = (view.context as Activity).window
-
-        // Set icons to DARK (so visible on white background)
         WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
     }
 }
@@ -518,10 +526,5 @@ fun SetWhiteStatusBar() {
 @Preview
 @Composable
 fun PreviewOnboardingScreen() {
-    OnboardingScreen(
-        slides = listOf(
-            BeforeAfterSlide(R.drawable.img_onboard1_before, R.drawable.img_onboard1_after),
-            BeforeAfterSlide(R.drawable.img_onboard2_before, R.drawable.img_onboard2_after),
-            BeforeAfterSlide(R.drawable.img_onboard3_before, R.drawable.img_onboard3_after),
-        ), onOtpVerified = {})
+    OnboardingScreen(onOtpVerified = {})
 }

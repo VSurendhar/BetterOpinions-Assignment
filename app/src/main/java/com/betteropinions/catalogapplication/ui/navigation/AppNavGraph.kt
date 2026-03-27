@@ -5,9 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.betteropinions.catalogapplication.R
 import com.betteropinions.catalogapplication.ui.screens.mainScreen.MainScreen
-import com.betteropinions.catalogapplication.ui.screens.onBoardScreen.BeforeAfterSlide
 import com.betteropinions.catalogapplication.ui.screens.onBoardScreen.OnboardingScreen
 import com.betteropinions.catalogapplication.ui.screens.splashScreen.SplashScreen
 
@@ -40,20 +38,6 @@ fun AppNavGraph(
                         popUpTo(Screen.Onboarding.route) { inclusive = true }
                     }
                 },
-                slides = listOf(
-                    BeforeAfterSlide(
-                        R.drawable.img_onboard1_before,
-                        R.drawable.img_onboard1_after
-                    ),
-                    BeforeAfterSlide(
-                        R.drawable.img_onboard2_before,
-                        R.drawable.img_onboard2_after
-                    ),
-                    BeforeAfterSlide(
-                        R.drawable.img_onboard3_before,
-                        R.drawable.img_onboard3_after
-                    )
-                )
             )
         }
 

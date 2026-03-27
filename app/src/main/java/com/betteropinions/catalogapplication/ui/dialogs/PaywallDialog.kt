@@ -58,7 +58,6 @@ fun PaywallDialog(
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
         ) {
-            // Outer Card — white background
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -71,7 +70,6 @@ fun PaywallDialog(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    // Inner Box — gradient background, contains image + bullets
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -111,7 +109,6 @@ fun PaywallDialog(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
 
-                            // Paywall Image
                             Image(
                                 painter = painterResource(R.drawable.img_paywall),
                                 contentDescription = null,
@@ -123,7 +120,6 @@ fun PaywallDialog(
 
                             Spacer(Modifier.height(16.dp))
 
-                            // Bullet points
                             Column(
                                 modifier = Modifier.fillMaxWidth(),
                                 verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -138,7 +134,6 @@ fun PaywallDialog(
 
                     Spacer(Modifier.height(12.dp))
 
-                    // Note — on white background
                     Text(
                         text = "Note: Trial ₹9 for 3 days then ₹199/ month",
                         fontSize = 14.sp,
@@ -150,7 +145,6 @@ fun PaywallDialog(
 
                     Spacer(Modifier.height(10.dp))
 
-                    // Pay Button — below the gradient box
                     Button(
                         onClick = onPayClick,
                         modifier = Modifier

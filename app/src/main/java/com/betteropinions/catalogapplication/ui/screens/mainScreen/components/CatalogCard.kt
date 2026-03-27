@@ -4,17 +4,12 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,8 +20,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.betteropinions.catalogapplication.R
-import com.betteropinions.catalogapplication.ui.dialogs.PaywallDialog
-import com.betteropinions.catalogapplication.ui.dialogs.ThanksDialog
 import com.betteropinions.catalogapplication.ui.theme.DarkSlateGrayBlue
 import com.betteropinions.catalogapplication.ui.theme.InterFontFamily
 import com.betteropinions.catalogapplication.ui.theme.PoppinsFontFamily
@@ -35,15 +28,15 @@ import com.betteropinions.catalogapplication.ui.theme.catalogColors
 
 @Composable
 fun CatalogCard(
+    title: String,
     afterImageRes: Int,
     beforeImageRes: Int,
+    onTryItOutClick: () -> Unit,
 ) {
     val colors = MaterialTheme.catalogColors
     val slides = listOf(afterImageRes, beforeImageRes)
     val labels = listOf("After", "Before")
     val pagerState = rememberPagerState(pageCount = { slides.size })
-    var paywallDialog: Boolean by remember { mutableStateOf(false) }
-    var thanksDialog: Boolean by remember { mutableStateOf(false) }
 
     Card(
         shape = RoundedCornerShape(12.dp),
@@ -63,7 +56,7 @@ fun CatalogCard(
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = "Catalog",
+                    text = title,
                     fontFamily = PoppinsFontFamily,
                     fontWeight = FontWeight.W500,
                     color = DarkSlateGrayBlue,
@@ -71,7 +64,6 @@ fun CatalogCard(
                 )
             }
 
-            // Image Pager with Before/After label
             Box {
                 HorizontalPager(
                     state = pagerState,
@@ -108,7 +100,6 @@ fun CatalogCard(
                     }
                 }
 
-                // Dot indicators — bottom-center
                 Row(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -132,9 +123,7 @@ fun CatalogCard(
             }
 
             Button(
-                onClick = {
-                    paywallDialog = true
-                },
+                onClick = onTryItOutClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(12.dp),
@@ -146,21 +135,5 @@ fun CatalogCard(
                 Text("TRY IT OUT!", fontSize = 16.sp, color = Color.White)
             }
         }
-
-        if (paywallDialog) {
-            PaywallDialog(onDismiss = {
-                paywallDialog = false
-            }, onPayClick = {
-                paywallDialog = false
-                thanksDialog = true
-            })
-        }
-
-        if (thanksDialog) {
-            ThanksDialog(onDismiss = {
-                thanksDialog = false
-            })
-        }
-
     }
 }

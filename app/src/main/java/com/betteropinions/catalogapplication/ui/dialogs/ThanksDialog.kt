@@ -51,7 +51,6 @@ fun ThanksDialog(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                // Rocket icon
                 Image(
                     painter = painterResource(R.drawable.ic_launch_logo),
                     contentDescription = "Launch",
@@ -60,7 +59,6 @@ fun ThanksDialog(
 
                 Spacer(Modifier.height(20.dp))
 
-                // Thanks!
                 Text(
                     text = "Thanks!",
                     fontSize = 31.sp,
@@ -72,7 +70,6 @@ fun ThanksDialog(
 
                 Spacer(Modifier.height(6.dp))
 
-                // Subtitle
                 Text(
                     text = "We are Launching Soon",
                     fontSize = 16.sp,
@@ -84,7 +81,6 @@ fun ThanksDialog(
 
                 Spacer(Modifier.height(16.dp))
 
-                // Refund badge
                 Text(
                     text = "Amount will be refunded",
                     fontSize = 13.sp,
